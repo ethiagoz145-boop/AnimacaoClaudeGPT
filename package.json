@@ -12,7 +12,6 @@
     "@react-three/fiber": "9.8.2",
     "@remotion/bundler": "4.0.538",
     "@remotion/cli": "4.0.538",
-    "@remotion/compositor-win32-x64-msvc": "4.0.538",
     "@remotion/media": "4.0.538",
     "@remotion/media-utils": "4.0.538",
     "@remotion/renderer": "4.0.538",
@@ -39,7 +38,9 @@
     "dev": "remotion studio",
     "build": "remotion bundle",
     "upgrade": "remotion upgrade",
-    "lint": "eslint src && tsc"
+    "lint": "eslint src && tsc",
+    "render": "remotion render GravityZero out/gravity-zero.mp4",
+    "still": "remotion still GravityZero out/gravity-zero.png"
   },
   "allowScripts": {
     "esbuild": false

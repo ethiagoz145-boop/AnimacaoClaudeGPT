@@ -1,5 +1,4 @@
 import { Composition } from "remotion";
-import { MyComposition } from "./Composition";
 import {
   GravityZero,
   gravityZeroDefaults,
@@ -10,7 +9,6 @@ import { DURATION, FPS, HEIGHT, WIDTH } from "./gravity-zero/timeline";
 export const RemotionRoot: React.FC = () => {
   return (
     <>
-      <MyComposition />
       <Composition
         id="GravityZero"
         component={GravityZero}

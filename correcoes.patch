@@ -1,0 +1,102 @@
+diff --git a/README.md b/README.md
+index bad46ff..4efde8b 100644
+--- a/README.md
++++ b/README.md
+@@ -78,3 +78,34 @@ Estrutura em `src/gravity-zero/`:
+ Áudio: preencha as props `audio.*` no Studio com caminhos dentro de `public/`
+ (ex.: `sfx/impact.wav`) ou URLs. Os momentos de sincronia estão em `CUES`.
+ Ative `showSafeZones` para visualizar as margens seguras de Shorts/Reels/TikTok.
++
++## Exportar e validar
++
++```console
++npm ci
++npm run lint
++npm run build
++npm run render
++```
++
++`npm run render` exporta a composição `GravityZero` para `out/gravity-zero.mp4`.
++`npm run still -- --frame=470` exporta uma imagem da cidade flutuando.
++A instalação escolhe automaticamente o compositor do Remotion para seu sistema operacional.
++
++### Áudio pendente
++
++O vídeo está sem áudio por padrão. Para usar sua voz do ElevenLabs, salve o
++arquivo em `public/audio/narracao.mp3` e informe `audio/narracao.mp3` na prop
++`audio.narration` no Studio. Faça o mesmo com trilha e efeitos nas outras props
++`audio.*`. Não coloque chaves de API nos arquivos do projeto.
++
++Para exportar com os mesmos áudios pela linha de comando, crie um arquivo
++`props.json` com todas as props (`showCaptions`, `showSafeZones` e `audio`,
++incluindo os sete campos do esquema em `SoundLayer.tsx`) e execute:
++
++```console
++npm run render -- --props=props.json
++```
++
++A contagem de cinco segundos é exibida em câmera lenta: cada número dura dois
++segundos do vídeo. A física é estilizada, não uma simulação científica.
+diff --git a/package-lock.json b/package-lock.json
+index 4e8c8a1..93bb7fc 100644
+--- a/package-lock.json
++++ b/package-lock.json
+@@ -12,7 +12,6 @@
+         "@react-three/fiber": "9.8.2",
+         "@remotion/bundler": "4.0.538",
+         "@remotion/cli": "4.0.538",
+-        "@remotion/compositor-win32-x64-msvc": "4.0.538",
+         "@remotion/media": "4.0.538",
+         "@remotion/media-utils": "4.0.538",
+         "@remotion/renderer": "4.0.538",
+@@ -1553,7 +1552,8 @@
+       ],
+       "os": [
+         "win32"
+-      ]
++      ],
++      "optional": true
+     },
+     "node_modules/@remotion/elevenlabs": {
+       "version": "4.0.538",
+diff --git a/package.json b/package.json
+index 93c46c4..058f00d 100644
+--- a/package.json
++++ b/package.json
+@@ -12,7 +12,6 @@
+     "@react-three/fiber": "9.8.2",
+     "@remotion/bundler": "4.0.538",
+     "@remotion/cli": "4.0.538",
+-    "@remotion/compositor-win32-x64-msvc": "4.0.538",
+     "@remotion/media": "4.0.538",
+     "@remotion/media-utils": "4.0.538",
+     "@remotion/renderer": "4.0.538",
+@@ -39,7 +38,9 @@
+     "dev": "remotion studio",
+     "build": "remotion bundle",
+     "upgrade": "remotion upgrade",
+-    "lint": "eslint src && tsc"
++    "lint": "eslint src && tsc",
++    "render": "remotion render GravityZero out/gravity-zero.mp4",
++    "still": "remotion still GravityZero out/gravity-zero.png"
+   },
+   "allowScripts": {
+     "esbuild": false
+diff --git a/src/Root.tsx b/src/Root.tsx
+index 0e15022..a5b83f8 100644
+--- a/src/Root.tsx
++++ b/src/Root.tsx
+@@ -1,5 +1,4 @@
+ import { Composition } from "remotion";
+-import { MyComposition } from "./Composition";
+ import {
+   GravityZero,
+   gravityZeroDefaults,
+@@ -10,7 +9,6 @@ import { DURATION, FPS, HEIGHT, WIDTH } from "./gravity-zero/timeline";
+ export const RemotionRoot: React.FC = () => {
+   return (
+     <>
+-      <MyComposition />
+       <Composition
+         id="GravityZero"
+         component={GravityZero}

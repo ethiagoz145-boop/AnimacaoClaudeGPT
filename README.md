@@ -78,3 +78,34 @@ Estrutura em `src/gravity-zero/`:
 Áudio: preencha as props `audio.*` no Studio com caminhos dentro de `public/`
 (ex.: `sfx/impact.wav`) ou URLs. Os momentos de sincronia estão em `CUES`.
 Ative `showSafeZones` para visualizar as margens seguras de Shorts/Reels/TikTok.
+
+## Exportar e validar
+
+```console
+npm ci
+npm run lint
+npm run build
+npm run render
+```
+
+`npm run render` exporta a composição `GravityZero` para `out/gravity-zero.mp4`.
+`npm run still -- --frame=470` exporta uma imagem da cidade flutuando.
+A instalação escolhe automaticamente o compositor do Remotion para seu sistema operacional.
+
+### Áudio pendente
+
+O vídeo está sem áudio por padrão. Para usar sua voz do ElevenLabs, salve o
+arquivo em `public/audio/narracao.mp3` e informe `audio/narracao.mp3` na prop
+`audio.narration` no Studio. Faça o mesmo com trilha e efeitos nas outras props
+`audio.*`. Não coloque chaves de API nos arquivos do projeto.
+
+Para exportar com os mesmos áudios pela linha de comando, crie um arquivo
+`props.json` com todas as props (`showCaptions`, `showSafeZones` e `audio`,
+incluindo os sete campos do esquema em `SoundLayer.tsx`) e execute:
+
+```console
+npm run render -- --props=props.json
+```
+
+A contagem de cinco segundos é exibida em câmera lenta: cada número dura dois
+segundos do vídeo. A física é estilizada, não uma simulação científica.
