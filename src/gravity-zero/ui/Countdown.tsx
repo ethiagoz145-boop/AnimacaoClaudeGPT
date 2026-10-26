@@ -1,5 +1,7 @@
+import { TIMELINE_FPS } from "../timeline";
+import { useTimelineFrame } from "../useTimelineFrame";
 import React from "react";
-import { interpolate, spring, useCurrentFrame, useVideoConfig } from "remotion";
+import { interpolate, spring } from "remotion";
 import { COUNT_STEP, T } from "../timeline";
 import { SAFE } from "./Captions";
 
@@ -7,8 +9,8 @@ const FONT = '"Segoe UI", "Arial Black", Arial, sans-serif';
 
 /** HUD da contagem fictícia de 5 segundos (abaixo das legendas). */
 export const Countdown: React.FC = () => {
-  const frame = useCurrentFrame();
-  const { fps } = useVideoConfig();
+  const frame = useTimelineFrame();
+  const fps = TIMELINE_FPS;
   const start = T.countdown - 6;
   const end = T.fallStart + 8;
   if (frame < start || frame >= end) return null;

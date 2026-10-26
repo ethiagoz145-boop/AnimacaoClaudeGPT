@@ -1,7 +1,7 @@
+import { useTimelineFrame } from "../useTimelineFrame";
 import { useThree } from "@react-three/fiber";
 import React, { useLayoutEffect } from "react";
 import * as THREE from "three";
-import { useCurrentFrame } from "remotion";
 import { CARS, DOG, IMPACTS, PEOPLE } from "../layout";
 import {
   easeInOutCubic,
@@ -135,18 +135,18 @@ export const shotAt = (f: number): Shot => {
 const tmpTarget = new THREE.Vector3();
 
 export const CameraRig: React.FC = () => {
-  const frame = useCurrentFrame();
+  const frame = useTimelineFrame();
   const camera = useThree((s) => s.camera) as THREE.PerspectiveCamera;
 
   useLayoutEffect(() => {
     const t = sceneTimeFor(frame);
     const shot = shotAt(frame);
-    const e = Math.min(2.5, impactEnergy(IMPACTS, t)) * 0.05;
+    const e = Math.min(2.5, impactEnergy(IMPACTS, t)) * 0.035;
     // respiração de câmera na mão, sutil
-    const hand = 0.03;
-    const sx = wobble(t * 1.2, 1) * hand + wobble(t * 9, 4) * e;
-    const sy = wobble(t * 1.1, 2) * hand + wobble(t * 9, 5) * e;
-    const sz = wobble(t * 9, 6) * e;
+    const hand = 0.02;
+    const sx = wobble(t * 1.2, 1) * hand + wobble(t * 2.5, 4) * e;
+    const sy = wobble(t * 1.1, 2) * hand + wobble(t * 2.5, 5) * e;
+    const sz = wobble(t * 2.5, 6) * e;
     camera.position.set(shot.pos[0] + sx, shot.pos[1] + sy, shot.pos[2] + sz);
     tmpTarget.set(shot.target[0], shot.target[1], shot.target[2]);
     camera.lookAt(tmpTarget);

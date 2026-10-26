@@ -55,7 +55,7 @@ Note that for some entities a company license is needed. [Read the terms here](h
 
 ## GRAVITY ZERO (`GravityZero`)
 
-Short vertical (1080x1920, 30 fps, 28 s) em 3D low poly: "E se a gravidade desaparecesse por 5 segundos?"
+Short vertical (1080x1920, 60 fps, 28 s) em 3D low poly: "E se a gravidade desaparecesse por 5 segundos?"
 
 ```console
 npm run dev                                   # Studio → composição GravityZero
@@ -109,3 +109,15 @@ npm run render -- --props=props.json
 
 A contagem de cinco segundos é exibida em câmera lenta: cada número dura dois
 segundos do vídeo. A física é estilizada, não uma simulação científica.
+
+## Fluidez a 60 FPS
+
+A composição GravityZero tem 1680 quadros e mantém os 28 segundos.
+Câmera, física, efeitos e legendas usam tempo contínuo na base de 30 fps,
+com meios quadros intermediários; os áudios são convertidos para os frames
+da exportação. As molas das legendas mantêm sua duração original.
+O tremor da câmera nos impactos foi reduzido e suavizado.
+
+Reinicie `npm run dev`. No Studio, confirme **60 fps**, duração **00:28.00**
+e intervalo completo **0–1679** antes de exportar. O render pode levar mais
+tempo, pois produz o dobro de quadros. Não aumente a velocidade de reprodução.

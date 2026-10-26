@@ -1,6 +1,7 @@
 // Mapa de tempo do curta (frames a 30 fps). Tudo no vídeo deriva destes marcos.
-export const FPS = 30;
-export const DURATION = 840; // 28 s
+export const TIMELINE_FPS = 30;
+export const FPS = 60;
+export const DURATION = 28 * FPS; // 1680 frames, 28 s
 export const WIDTH = 1080;
 export const HEIGHT = 1920;
 
@@ -15,7 +16,7 @@ export const T = {
   fallStart: 588, // fim da suspensão, começa a queda
   aftermath: 665,
   again: 785, // ...e começa de novo (loop)
-  end: DURATION,
+  end: 28 * TIMELINE_FPS,
 };
 
 export const COUNT_STEP = (T.gravityBack - T.countdown) / 5;

@@ -1,7 +1,8 @@
+import { useTimelineFrame } from "./useTimelineFrame";
 import { ThreeCanvas } from "@remotion/three";
 import React from "react";
 import * as THREE from "three";
-import { AbsoluteFill, useCurrentFrame, useVideoConfig } from "remotion";
+import { AbsoluteFill, useVideoConfig } from "remotion";
 import { z } from "zod";
 import { audioSchema, NO_AUDIO, SoundLayer } from "./audio/SoundLayer";
 import { CameraRig } from "./camera/CameraRig";
@@ -76,7 +77,7 @@ const World: React.FC = () => (
 );
 
 export const GravityZero: React.FC<GravityZeroProps> = ({ showCaptions, showSafeZones, audio }) => {
-  const frame = useCurrentFrame();
+  const frame = useTimelineFrame();
   const { width, height } = useVideoConfig();
   const t = sceneTimeFor(frame);
   return (

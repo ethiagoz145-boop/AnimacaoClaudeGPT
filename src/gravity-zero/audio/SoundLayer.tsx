@@ -1,9 +1,9 @@
 import { Audio } from "@remotion/media";
 import React from "react";
-import { Sequence, staticFile } from "remotion";
+import { Sequence, staticFile, useVideoConfig } from "remotion";
 import { z } from "zod";
 import { IMPACTS } from "../layout";
-import { COUNT_STEP, T } from "../timeline";
+import { COUNT_STEP, T, TIMELINE_FPS } from "../timeline";
 
 /**
  * Pontos de entrada para narração, trilha e efeitos sonoros.
@@ -43,12 +43,14 @@ export const CUES = {
 
 const src = (s: string) => (/^https?:\/\//.test(s) ? s : staticFile(s));
 
-const Cue: React.FC<{ from: number; file: string; volume?: number }> = ({ from, file, volume = 1 }) =>
-  file ? (
-    <Sequence from={from} layout="none">
+const Cue: React.FC<{ from: number; file: string; volume?: number }> = ({ from, file, volume = 1 }) => {
+  const { fps } = useVideoConfig();
+  return file ? (
+    <Sequence from={Math.round(from * fps / TIMELINE_FPS)} layout="none">
       <Audio src={src(file)} volume={volume} />
     </Sequence>
   ) : null;
+};
 
 export const SoundLayer: React.FC<{ audio: AudioProps }> = ({ audio }) => (
   <>

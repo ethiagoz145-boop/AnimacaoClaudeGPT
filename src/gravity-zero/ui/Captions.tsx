@@ -1,5 +1,7 @@
+import { TIMELINE_FPS } from "../timeline";
+import { useTimelineFrame } from "../useTimelineFrame";
 import React from "react";
-import { interpolate, spring, useCurrentFrame, useVideoConfig } from "remotion";
+import { interpolate, spring } from "remotion";
 import { T } from "../timeline";
 
 /** Margens seguras para Shorts/Reels/TikTok (px em 1080x1920). */
@@ -31,7 +33,7 @@ const Word: React.FC<{ text: string; delay: number; local: number; size: number 
   local,
   size,
 }) => {
-  const { fps } = useVideoConfig();
+  const fps = TIMELINE_FPS;
   const hot = text.startsWith("*") && text.endsWith("*");
   const clean = text.replace(/\*/g, "");
   const s = spring({ frame: local - delay, fps, config: { damping: 12, stiffness: 180, mass: 0.6 } });
@@ -55,7 +57,7 @@ const Word: React.FC<{ text: string; delay: number; local: number; size: number 
 
 /** Legendas curtas, palavra a palavra, com contorno grosso para contraste. */
 export const Captions: React.FC = () => {
-  const frame = useCurrentFrame();
+  const frame = useTimelineFrame();
   const active = CAPTIONS.find((c) => frame >= c.from && frame < c.to);
   if (!active) return null;
   const local = frame - active.from;

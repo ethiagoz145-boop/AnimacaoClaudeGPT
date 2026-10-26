@@ -1,5 +1,6 @@
+import { useTimelineFrame } from "../useTimelineFrame";
 import React from "react";
-import { AbsoluteFill, interpolate, useCurrentFrame } from "remotion";
+import { AbsoluteFill, interpolate } from "remotion";
 import { IMPACTS } from "../layout";
 import { impactEnergy } from "../physics";
 import { sceneTimeFor, T } from "../timeline";
@@ -9,7 +10,7 @@ const clamp = { extrapolateLeft: "clamp", extrapolateRight: "clamp" } as const;
 
 /** Flashes de transição, vinheta e aviso de ficção. */
 export const Overlay: React.FC<{ showSafeZones: boolean }> = ({ showSafeZones }) => {
-  const frame = useCurrentFrame();
+  const frame = useTimelineFrame();
   const t = sceneTimeFor(frame);
 
   // flash branco no "rebobinar" do gancho para o início do dia
