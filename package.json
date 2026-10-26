@@ -9,14 +9,27 @@
   },
   "private": true,
   "dependencies": {
+    "@react-three/fiber": "9.8.2",
+    "@remotion/bundler": "4.0.538",
     "@remotion/cli": "4.0.538",
+    "@remotion/compositor-win32-x64-msvc": "4.0.538",
+    "@remotion/media": "4.0.538",
+    "@remotion/media-utils": "4.0.538",
+    "@remotion/renderer": "4.0.538",
+    "@remotion/studio": "4.0.538",
+    "@remotion/studio-server": "4.0.538",
+    "@remotion/studio-shared": "4.0.538",
+    "@remotion/three": "4.0.538",
     "react": "19.2.3",
     "react-dom": "19.2.3",
-    "remotion": "4.0.538"
+    "remotion": "4.0.538",
+    "three": "0.186.1",
+    "zod": "4.5.4"
   },
   "devDependencies": {
     "@remotion/eslint-config-flat": "4.0.538",
     "@types/react": "19.2.7",
+    "@types/three": "0.186.0",
     "@types/web": "0.0.166",
     "eslint": "10.12.0",
     "prettier": "3.8.1",
